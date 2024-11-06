@@ -10,7 +10,7 @@ screen = pygame.display.set_mode((800, 500), pygame.RESIZABLE)
 pygame.display.set_caption('DoOdLe JuMpE ReMaKe')
 
 player = Player(400, 250)
-jump_platform = JumpPlatform(400, 250)
+jump_platform = JumpPlatform(700, 250, player)
 
 clock = pygame.time.Clock()
 FPS = 60
@@ -31,10 +31,13 @@ while while_activity:
     player.update()
     player.draw(screen)
 
+    jump_platform.update()
     jump_platform.draw(screen)
     
     clock.tick(FPS)
     pygame.display.update()
+
+    print(player.rect)
 
 pygame.quit()
 sys.exit()
