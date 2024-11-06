@@ -2,15 +2,17 @@ import pygame
 
 class Player(pygame.sprite.Sprite):
     def __init__(self, x, y):
-        super().__init__()
         self.x = x
         self.y = y
-        self.image = pygame.image.load('player_foto.png').convert()
+        
+        self.image = pygame.image.load('./images/player_foto.png').convert()
         self.image.set_colorkey((255, 255, 255))
         self.rect = self.image.get_rect(center=(x, y))
+        
         self.BASESPEED = 20
         self.real_speed = 0
         self.movespeed = 10
+        
         self.jump_pressed = False  # Флаг для отслеживания нажатия "W" или "UP"
 
     def update(self):
@@ -35,5 +37,5 @@ class Player(pygame.sprite.Sprite):
             self.real_speed -= 1
         self.y -= self.real_speed
 
-    def draw(self, sc):
-        sc.blit(self.image, (self.x, self.y))
+    def draw(self, screen):
+        screen.blit(self.image, (self.x, self.y))
