@@ -5,7 +5,7 @@ class Player(pygame.sprite.Sprite):
         self.x = x
         self.y = y
         
-        self.image = pygame.image.load('./images/player_foto.png').convert()
+        self.image = pygame.image.load('images/player_foto.png').convert()
         self.image.set_colorkey((255, 255, 255))
         self.rect = self.image.get_rect(center=(x, y))
         
