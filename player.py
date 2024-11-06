@@ -9,7 +9,7 @@ class Player(pygame.sprite.Sprite):
 
         self.rect = self.original_image.get_rect(center=(x, y))
 
-        self.BASE_SPEED = 20
+        self.BASE_SPEED = 25
         self.real_speed = 0
         self.move_speed = 10
 
@@ -22,7 +22,7 @@ class Player(pygame.sprite.Sprite):
             self.real_speed = self.BASE_SPEED  # Прыжок
             self.jump_pressed = True  # Установить флаг, чтобы заблокировать удержание
 
-    def update(self):
+    def update(self, all_object: list):
         keys = pygame.key.get_pressed()
 
         # Обработка движения влево и вправо
@@ -51,6 +51,11 @@ class Player(pygame.sprite.Sprite):
         
         if self.rect.centerx < 0:
             self.rect.centerx = self.screen.get_width()
+        
+        if self.rect.centery < self.screen.get_height() // 2:
+            for obj in all_object:
+                if self.real_speed > 0:
+                    obj.rect.centery += self.real_speed
 
     def draw(self, screen):
         screen.blit(self.image, self.rect.center)

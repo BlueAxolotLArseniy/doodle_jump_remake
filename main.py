@@ -12,6 +12,8 @@ pygame.display.set_caption('DoOdLe JuMpE ReMaKe')
 player = Player(400, 250, screen)
 jump_platform = JumpPlatform(700, 250, player)
 
+all_objects = [jump_platform]
+
 clock = pygame.time.Clock()
 FPS = 60
 
@@ -28,7 +30,7 @@ while while_activity:
                 
     screen.fill((140, 27, 168))
     
-    player.update()
+    player.update(all_objects)
     player.draw(screen)
 
     jump_platform.update()
