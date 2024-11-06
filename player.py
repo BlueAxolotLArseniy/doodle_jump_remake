@@ -1,11 +1,13 @@
 import pygame
 
-
 class Player(pygame.sprite.Sprite):
     def __init__(self, x, y, screen: pygame.Surface):
-        self.image = pygame.image.load('images/player.png').convert()
-        self.image.set_colorkey((255, 255, 255))
-        self.rect = self.image.get_rect(center=(x, y))
+        self.original_image = pygame.image.load('images/player.png').convert()
+        self.original_image.set_colorkey((255, 255, 255))
+        self.flip_image = pygame.transform.flip(self.original_image, True, False)
+        self.image = self.original_image
+
+        self.rect = self.original_image.get_rect(center=(x, y))
 
         self.BASE_SPEED = 20
         self.real_speed = 0
@@ -26,8 +28,10 @@ class Player(pygame.sprite.Sprite):
         # Обработка движения влево и вправо
         if keys[pygame.K_a] or keys[pygame.K_LEFT]:
             self.rect.centerx -= self.move_speed
+            self.image = self.flip_image
         if keys[pygame.K_d] or keys[pygame.K_RIGHT]:
             self.rect.centerx += self.move_speed
+            self.image = self.original_image
 
         # Обработка прыжка (движение вверх) с блокировкой удерживания
         if keys[pygame.K_w] or keys[pygame.K_UP]:
