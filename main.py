@@ -9,7 +9,7 @@ screen = pygame.display.set_mode((800, 500), pygame.RESIZABLE)
 
 pygame.display.set_caption('DoOdLe JuMpE ReMaKe')
 
-player = Player(400, 250)
+player = Player(400, 250, screen)
 jump_platform = JumpPlatform(700, 250, player)
 
 clock = pygame.time.Clock()
