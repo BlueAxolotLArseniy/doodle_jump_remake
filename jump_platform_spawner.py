@@ -15,7 +15,7 @@ class JumpPlatformSpawner:
         pass
 
     def spawn_main_jump_platforms(self):
-        for y in range(50, -2050, -200):
+        for y in range(50, -2050, -150):
             platform = JumpPlatform(
                 x=random.randint(20, self.screen.get_width()-20),
                 y=y,
@@ -28,7 +28,7 @@ class JumpPlatformSpawner:
             platform.update()
         if self.platforms[0].rect.centery >= 510:
             self.platforms.pop(0)
-        if self.platforms[-1].rect.centery > -1850:
+        if self.platforms[-1].rect.centery > -1900:
             self.platforms.append(JumpPlatform(
                 x=random.randint(20, self.screen.get_width()-20),
                 y=-2050,
