@@ -26,6 +26,14 @@ class JumpPlatformSpawner:
     def update(self):
         for platform in self.platforms:
             platform.update()
+        if self.platforms[0].rect.centery >= 510:
+            self.platforms.pop(0)
+        if self.platforms[-1].rect.centery > -1850:
+            self.platforms.append(JumpPlatform(
+                x=random.randint(20, self.screen.get_width()-20),
+                y=-2050,
+                player=self.player
+            ))
             
     def draw(self):
         for platform in self.platforms:

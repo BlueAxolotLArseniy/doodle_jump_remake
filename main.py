@@ -17,6 +17,9 @@ jump_platform_spawner = JumpPlatformSpawner(player, screen)
 
 jump_platform_spawner.spawn_main_jump_platforms()
 
+background = pygame.image.load('images/background.jpg').convert()
+background_rect = (0, 0, 1920, 1080)
+
 clock = pygame.time.Clock()
 FPS = 60
 
@@ -31,13 +34,13 @@ while while_activity:
             if event.key == pygame.K_ESCAPE:
                 while_activity = False
 
-    screen.fill((140, 27, 168))
-
-    player.update(jump_platform_spawner.platforms)
-    player.draw(screen)
+    screen.blit(background, background_rect)
 
     jump_platform_spawner.update()
     jump_platform_spawner.draw()
+
+    player.update(jump_platform_spawner.platforms)
+    player.draw(screen)
 
     clock.tick(FPS)
     pygame.display.update()

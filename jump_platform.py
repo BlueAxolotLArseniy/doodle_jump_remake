@@ -10,7 +10,7 @@ class JumpPlatform(pygame.sprite.Sprite):
         self.rect = self.image.get_rect(center=(x, y))
 
     def update(self):
-        if self.player.rect.colliderect(self.rect):
+        if self.player.rect.colliderect(self.rect) and self.player.real_speed <= -20:
             self.player.jump()
 
     def draw(self, screen):
