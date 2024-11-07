@@ -7,7 +7,7 @@ from jump_platform import JumpPlatform
 
 pygame.init()
 
-screen = pygame.display.set_mode((800, 500), pygame.RESIZABLE)
+screen = pygame.display.set_mode((600, 900), pygame.RESIZABLE)
 
 pygame.display.set_caption('DoOdLe JuMpE ReMaKe')
 
@@ -37,9 +37,9 @@ while while_activity:
     screen.blit(background, background_rect)
 
     jump_platform_spawner.update()
-    jump_platform_spawner.draw()
-
     player.update(jump_platform_spawner.platforms)
+
+    jump_platform_spawner.draw()
     player.draw(screen)
 
     clock.tick(FPS)
