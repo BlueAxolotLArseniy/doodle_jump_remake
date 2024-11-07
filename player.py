@@ -1,5 +1,6 @@
 import pygame
 
+
 class Player(pygame.sprite.Sprite):
     def __init__(self, x, y, screen: pygame.Surface):
         self.original_image = pygame.image.load('images/player.png').convert()
@@ -17,9 +18,9 @@ class Player(pygame.sprite.Sprite):
 
         self.screen = screen
 
-    def jump(self):
+    def jump(self, jump_force: float = 1.0):
         if not self.jump_pressed:  # Если кнопка не удерживается
-            self.real_speed = self.BASE_SPEED  # Прыжок
+            self.real_speed = self.BASE_SPEED * jump_force  # Прыжок
             self.jump_pressed = True  # Установить флаг, чтобы заблокировать удержание
 
     def update(self, all_object: list):
@@ -48,14 +49,14 @@ class Player(pygame.sprite.Sprite):
 
         if self.rect.centerx > self.screen.get_width():
             self.rect.centerx = 0
-        
+
         if self.rect.centerx < 0:
             self.rect.centerx = self.screen.get_width()
-        
+
         if self.rect.centery < (self.screen.get_height() // 4) * 3:
             for obj in all_object:
                 if self.real_speed > 0:
-                    obj.rect.centery += self.real_speed
+                    obj.move_y(self.real_speed)
 
     def draw(self, screen):
         screen.blit(self.image, self.rect.center)
