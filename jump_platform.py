@@ -12,6 +12,7 @@ class JumpPlatform(pygame.sprite.Sprite):
 
     def update(self):
         if self.player.rect.colliderect(self.rect) and self.player.real_speed <= -20:
+            pygame.mixer.Sound("sounds/jump.mp3").play()
             self.player.jump()
 
     def draw(self, screen):

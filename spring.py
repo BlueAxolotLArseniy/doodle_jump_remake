@@ -15,6 +15,7 @@ class SpringPlatform(JumpPlatform):
 
     def update(self):
         if self.player.rect.colliderect(self.rect) and self.player.real_speed <= -20:
+            pygame.mixer.Sound("sounds/spring_jump.mp3").play()
             self.player.jump(self.jump_force)
 
     def draw(self, screen):
