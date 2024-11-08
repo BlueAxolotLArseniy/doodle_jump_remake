@@ -55,7 +55,7 @@ class Player(pygame.sprite.Sprite):
 
         target_y = self.screen.get_height() // 4
         if self.rect.centery < target_y:
-            if self.real_speed >= 25:
+            if self.real_speed >= 30:
                 self.rect.centery = target_y
             for obj in all_objects:
                 if self.real_speed > 0:
