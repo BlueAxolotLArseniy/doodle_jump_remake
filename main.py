@@ -45,7 +45,5 @@ while while_activity:
     clock.tick(FPS)
     pygame.display.update()
 
-    print(player.rect)
-
 pygame.quit()
 sys.exit()

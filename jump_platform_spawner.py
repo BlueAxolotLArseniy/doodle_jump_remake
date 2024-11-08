@@ -12,13 +12,10 @@ class JumpPlatformSpawner:
         self.screen = screen
         self.platforms: list[JumpPlatform] = []
 
-    def new_platform(self):
-        pass
-
     def spawn_main_jump_platforms(self):
         for y in range(50, -700, -150):
             platform = JumpPlatform(
-                x=random.randint(20, self.screen.get_width()-20),
+                x=random.randint(20, self.screen.get_width()-70),
                 y=y,
                 player=self.player
             )

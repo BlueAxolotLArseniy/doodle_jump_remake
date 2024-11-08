@@ -23,7 +23,7 @@ class Player(pygame.sprite.Sprite):
             self.real_speed = self.BASE_SPEED * jump_force  # Прыжок
             self.jump_pressed = True  # Установить флаг, чтобы заблокировать удержание
 
-    def update(self, all_object: list):
+    def update(self, all_objects: list):
         keys = pygame.key.get_pressed()
 
         # Обработка движения влево и вправо
@@ -36,11 +36,11 @@ class Player(pygame.sprite.Sprite):
 
         # Обработка прыжка (движение вверх) с блокировкой удерживания
         if keys[pygame.K_w] or keys[pygame.K_UP]:
-            if not self.jump_pressed:  # Если кнопка не удерживается
-                self.real_speed = self.BASE_SPEED  # Прыжок
-                self.jump_pressed = True  # Установить флаг, чтобы заблокировать удержание
+            if not self.jump_pressed:
+                self.real_speed = self.BASE_SPEED
+                self.jump_pressed = True
         else:
-            self.jump_pressed = False  # Сбросить флаг, когда кнопка отпущена
+            self.jump_pressed = False
 
         # Обновление вертикального положения
         if self.real_speed > -self.BASE_SPEED:
@@ -53,8 +53,10 @@ class Player(pygame.sprite.Sprite):
         if self.rect.centerx < 0:
             self.rect.centerx = self.screen.get_width()
 
-        if self.rect.centery < (self.screen.get_height() // 4) * 3:
-            for obj in all_object:
+        target_y = self.screen.get_height() // 4
+        if self.rect.centery < target_y:
+            self.rect.centery = target_y
+            for obj in all_objects:
                 if self.real_speed > 0:
                     obj.move_y(self.real_speed)
 
