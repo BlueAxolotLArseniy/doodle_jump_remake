@@ -11,7 +11,7 @@ class SpringPlatform(JumpPlatform):
         self.spring_image = pygame.image.load("images/spring.png")
         rand_x = random.randint(x+3, x+67)
         self.spring_image_rect = self.spring_image.get_rect(center=(rand_x, y-20))
-        self.jump_force = 1.3
+        self.jump_force = 1.47
 
     def update(self):
         if self.player.rect.colliderect(self.rect) and self.player.real_speed <= -20:

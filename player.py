@@ -10,7 +10,7 @@ class Player(pygame.sprite.Sprite):
 
         self.rect = self.original_image.get_rect(center=(x, y))
 
-        self.BASE_SPEED = 22
+        self.BASE_SPEED = 26
         self.real_speed = 0
         self.move_speed = 10
 
@@ -53,13 +53,13 @@ class Player(pygame.sprite.Sprite):
         if self.rect.centerx < 0:
             self.rect.centerx = self.screen.get_width()
 
-        target_y = self.screen.get_height() // 4
+        target_y = self.screen.get_height() // 3
         if self.rect.centery < target_y:
-            if self.real_speed >= 30:
-                self.rect.centery = target_y
+            self.rect.centery = target_y
             for obj in all_objects:
                 if self.real_speed > 0:
                     obj.move_y(self.real_speed)
+                    self.rect.centery += target_y - self.rect.centery
 
     def draw(self, screen):
         screen.blit(self.image, self.rect.center)
