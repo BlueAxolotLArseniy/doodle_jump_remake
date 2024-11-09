@@ -10,9 +10,10 @@ class Player(pygame.sprite.Sprite):
 
         self.rect = self.original_image.get_rect(center=(x, y))
 
-        self.BASE_SPEED = 26
+        self.__fall_speed = 0.03
+        self.BASE_SPEED = 3
         self.real_speed = 0
-        self.move_speed = 10
+        self.move_speed = 2
 
         self.jump_pressed = False  # Флаг для отслеживания нажатия "W" или "UP"
 
@@ -44,7 +45,7 @@ class Player(pygame.sprite.Sprite):
 
         # Обновление вертикального положения
         if self.real_speed > -self.BASE_SPEED:
-            self.real_speed -= 1
+            self.real_speed -= self.__fall_speed
         self.rect.centery -= self.real_speed
 
         if self.rect.centerx > self.screen.get_width():
@@ -61,5 +62,8 @@ class Player(pygame.sprite.Sprite):
                     obj.move_y(self.real_speed)
                     self.rect.centery += target_y - self.rect.centery
 
+        # print(self.real_speed)
+
     def draw(self, screen):
+        pygame.draw.rect(screen, (180, 198, 250), self.rect)
         screen.blit(self.image, self.rect.center)

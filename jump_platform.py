@@ -11,14 +11,12 @@ class JumpPlatform(pygame.sprite.Sprite):
         self.rect = self.image.get_rect(center=(x, y))
 
     def update(self):
-        #this code, works is too strange. We don`t know but it work :)
-        player_rect = pygame.Rect(self.player.rect.centerx, self.player.rect.centery,
-                                  self.player.rect.width, self.player.rect.height)
-        if player_rect.colliderect(self.rect) and self.player.real_speed < 0:
+        if self.player.rect.colliderect(self.rect) and self.player.real_speed < 0:
             pygame.mixer.Sound("sounds/jump.mp3").play()
             self.player.jump()
 
     def draw(self, screen):
+        pygame.draw.rect(screen, (222, 138, 255), self.rect)
         screen.blit(self.image, self.rect.center)
 
     def move_y(self, diff):

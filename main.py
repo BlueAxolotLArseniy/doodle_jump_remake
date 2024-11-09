@@ -1,9 +1,8 @@
-import random
+from datetime import datetime
 import pygame
 import sys
 from jump_platform_spawner import JumpPlatformSpawner
 from player import Player
-from jump_platform import JumpPlatform
 
 pygame.init()
 
@@ -21,9 +20,14 @@ background = pygame.image.load('images/background.jpg').convert()
 background_rect = (0, 0, 1920, 1080)
 
 clock = pygame.time.Clock()
-FPS = 60
+
+FPS = 1000
+DRAW_FPS = 60
 
 while_activity = True
+
+last_draw_time = datetime.now()
+
 
 while while_activity:
 
@@ -34,16 +38,18 @@ while while_activity:
             if event.key == pygame.K_ESCAPE:
                 while_activity = False
 
-    screen.blit(background, background_rect)
-
     jump_platform_spawner.update()
     player.update(jump_platform_spawner.platforms)
 
-    jump_platform_spawner.draw()
-    player.draw(screen)
-
     clock.tick(FPS)
-    pygame.display.update()
+
+    if (datetime.now() - last_draw_time).total_seconds() > (1.0 / DRAW_FPS):
+        screen.blit(background, background_rect)
+        jump_platform_spawner.draw()
+        player.draw(screen)
+        pygame.display.update()
+        last_draw_time = datetime.now()
+
 
 pygame.quit()
 sys.exit()
