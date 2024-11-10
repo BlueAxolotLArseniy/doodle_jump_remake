@@ -1,5 +1,4 @@
 import pygame
-
 from consts import IS_DEBUG, PLAYER_BASE_SPEED, PLAYER_FALL_SPEED, PLAYER_MOVE_SPEED
 
 
@@ -10,7 +9,7 @@ class Player(pygame.sprite.Sprite):
         self.flipped_image = pygame.transform.flip(self.original_image, True, False)
         self.image = self.original_image
 
-        self.rect = self.original_image.get_rect(topleft=(x, y))
+        self.rect = self.original_image.get_rect()
 
         self.speed = 0
 
@@ -66,4 +65,4 @@ class Player(pygame.sprite.Sprite):
     def draw(self, screen):
         if IS_DEBUG:
             pygame.draw.rect(screen, (180, 198, 250), self.rect)
-        screen.blit(self.image, self.rect.center)
+        screen.blit(self.image, self.rect.topleft)

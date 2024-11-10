@@ -32,7 +32,7 @@ class JumpPlatformSpawner:
     def spawn_platform(self):
         rand_x = random.randint(20, self.screen.get_width()-20)
         y = -700
-        if random.randint(1, 7) == 1:
+        if random.randint(1, 2) == 1:
             self.platforms.append(SpringPlatform(x=rand_x, y=y, player=self.player))
         else:
             self.platforms.append(JumpPlatform(x=rand_x, y=y, player=self.player))

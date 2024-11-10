@@ -29,6 +29,7 @@
         "pygame",
         "RCTRL",
         "SRCALPHA",
-        "tankmap"
+        "tankmap",
+        "topleft"
     ]
 }
