@@ -1,5 +1,5 @@
 import pygame
-from consts import IS_DEBUG
+from consts import IS_DEBUG, PLATFORM_JUMP_FORCE
 from player import Player
 
 
@@ -12,9 +12,9 @@ class JumpPlatform(pygame.sprite.Sprite):
         self.rect = self.image.get_rect(center=(x, y))
 
     def update(self):
-        if self.player.rect.colliderect(self.rect) and self.player.real_speed < 0:
+        if self.player.rect.colliderect(self.rect) and self.player.speed < 0:
             pygame.mixer.Sound("sounds/jump.mp3").play()
-            self.player.jump()
+            self.player.jump(PLATFORM_JUMP_FORCE)
 
     def draw(self, screen):
         if IS_DEBUG:

@@ -14,7 +14,7 @@ class SpringPlatform(JumpPlatform):
         self.spring_image_rect = self.spring_image.get_rect(center=(rand_x, y-20))
 
     def update(self):
-        if self.player.rect.colliderect(self.rect) and self.player.real_speed < 0:
+        if self.player.rect.colliderect(self.rect) and self.player.speed < 0:
             pygame.mixer.Sound("sounds/spring_jump.mp3").play()
             self.player.jump(SPRING_JUMP_FORCE)
 
