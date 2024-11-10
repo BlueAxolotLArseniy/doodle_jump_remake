@@ -11,6 +11,7 @@ class SpringPlatform(JumpPlatform):
         super().__init__(x, y, player)
         self.spring_image = pygame.image.load("images/spring.png")
         rand_x = random.randint(x, x+self.rect.width)
+        # rand_x = x
         self.spring_image_rect = self.spring_image.get_rect(topleft=(rand_x, y-self.spring_image.get_rect().height))
 
     def update(self):

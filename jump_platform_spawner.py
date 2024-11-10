@@ -4,6 +4,7 @@ import pygame
 from jump_platform import JumpPlatform
 from player import Player
 from spring import SpringPlatform
+from consts import SPRING_SPAWN_CHANCE
 
 
 class JumpPlatformSpawner:
@@ -32,7 +33,7 @@ class JumpPlatformSpawner:
     def spawn_platform(self):
         rand_x = random.randint(20, self.screen.get_width()-20)
         y = -700
-        if random.randint(1, 2) == 1:
+        if random.randint(1, SPRING_SPAWN_CHANCE) == 1:
             self.platforms.append(SpringPlatform(x=rand_x, y=y, player=self.player))
         else:
             self.platforms.append(JumpPlatform(x=rand_x, y=y, player=self.player))
