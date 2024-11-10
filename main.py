@@ -1,7 +1,8 @@
 from datetime import datetime
 import pygame
 import sys
-from consts import HALF_SCREEN_HEIGHT, HALF_SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_WIDTH
+import threading
+from consts import GAME_DRAW_FPS, GAME_FPS, HALF_SCREEN_HEIGHT, HALF_SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_WIDTH
 from jump_platform_spawner import JumpPlatformSpawner
 from player import Player
 
@@ -22,16 +23,26 @@ background_rect = (0, 0, 1920, 1080)
 
 clock = pygame.time.Clock()
 
-FPS = 1000
-DRAW_FPS = 60
 
 while_activity = True
 
 last_draw_time = datetime.now()
 
 
-while while_activity:
+def draw_game():
+    while while_activity:
+        screen.blit(background, background_rect)
+        jump_platform_spawner.draw()
+        player.draw(screen)
+        pygame.display.update()
+        clock.tick(GAME_DRAW_FPS)
 
+
+# Creating threads for update and draw
+draw_thread = threading.Thread(target=draw_game)
+draw_thread.start()
+
+while while_activity:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             while_activity = False
@@ -42,15 +53,7 @@ while while_activity:
     jump_platform_spawner.update()
     player.update(jump_platform_spawner.platforms)
 
-    clock.tick(FPS)
-
-    if (datetime.now() - last_draw_time).total_seconds() > (1.0 / DRAW_FPS):
-        screen.blit(background, background_rect)
-        jump_platform_spawner.draw()
-        player.draw(screen)
-        pygame.display.update()
-        last_draw_time = datetime.now()
-
+    clock.tick(GAME_FPS)
 
 pygame.quit()
 sys.exit()
