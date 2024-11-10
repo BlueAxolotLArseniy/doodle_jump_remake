@@ -1,6 +1,7 @@
 
 import random
 import pygame
+from consts import IS_DEBUG, SPRING_JUMP_FORCE
 from jump_platform import JumpPlatform
 from player import Player
 
@@ -11,16 +12,16 @@ class SpringPlatform(JumpPlatform):
         self.spring_image = pygame.image.load("images/spring.png")
         rand_x = random.randint(x+3, x+67)
         self.spring_image_rect = self.spring_image.get_rect(center=(rand_x, y-20))
-        self.jump_force = 3.5
 
     def update(self):
         if self.player.rect.colliderect(self.rect) and self.player.real_speed < 0:
             pygame.mixer.Sound("sounds/spring_jump.mp3").play()
-            self.player.jump(self.jump_force)
+            self.player.jump(SPRING_JUMP_FORCE)
 
     def draw(self, screen):
         super().draw(screen)
-        pygame.draw.rect(screen, (176, 255, 251), self.spring_image_rect)
+        if IS_DEBUG:
+            pygame.draw.rect(screen, (176, 255, 251), self.spring_image_rect)
         screen.blit(self.spring_image, self.spring_image_rect.center)
 
     def move_y(self, diff):

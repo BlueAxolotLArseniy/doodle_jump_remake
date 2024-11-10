@@ -1,4 +1,5 @@
 import pygame
+from consts import IS_DEBUG
 from player import Player
 
 
@@ -16,7 +17,8 @@ class JumpPlatform(pygame.sprite.Sprite):
             self.player.jump()
 
     def draw(self, screen):
-        pygame.draw.rect(screen, (222, 138, 255), self.rect)
+        if IS_DEBUG:
+            pygame.draw.rect(screen, (222, 138, 255), self.rect)
         screen.blit(self.image, self.rect.center)
 
     def move_y(self, diff):

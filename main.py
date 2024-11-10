@@ -1,16 +1,17 @@
 from datetime import datetime
 import pygame
 import sys
+from consts import HALF_SCREEN_HEIGHT, HALF_SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_WIDTH
 from jump_platform_spawner import JumpPlatformSpawner
 from player import Player
 
 pygame.init()
 
-screen = pygame.display.set_mode((600, 900), pygame.RESIZABLE)
+screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT), pygame.RESIZABLE)
 
 pygame.display.set_caption('DoOdLe JuMpE ReMaKe')
 
-player = Player(400, 250, screen)
+player = Player(HALF_SCREEN_WIDTH, HALF_SCREEN_HEIGHT, screen)
 
 jump_platform_spawner = JumpPlatformSpawner(player, screen)
 
