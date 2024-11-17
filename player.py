@@ -7,7 +7,16 @@ class Player(pygame.sprite.Sprite):
         self.original_image = pygame.image.load('images/player.png').convert()
         self.original_image.set_colorkey((255, 255, 255))
         self.flipped_image = pygame.transform.flip(self.original_image, True, False)
+        self.shooting_image = pygame.image.load('images/shooting_player.png').convert()
+        self.shooting_image.set_colorkey((255, 255, 255))
+        self.flipped_shooting_image = pygame.transform.flip(self.shooting_image, True, False)
+        
+        self.timer_fire = None
+        self.fire = False
+        
         self.image = self.original_image
+        
+        self.last_key = None
 
         self.rect = self.original_image.get_rect()
 
@@ -24,14 +33,23 @@ class Player(pygame.sprite.Sprite):
 
     def update(self, all_objects: list):
         keys = pygame.key.get_pressed()
-
+        for event in pygame.event.get():
+            if event.type == pygame.KEYDOWN: self.last_key = event.key
+        
         # Обработка движения влево и вправо
         if keys[pygame.K_a] or keys[pygame.K_LEFT]:
             self.rect.centerx -= PLAYER_MOVE_SPEED
-            self.image = self.flipped_image
+            if self.fire == True:
+                self.image = self.flipped_shooting_image
+            else:
+                self.image = self.flipped_image
+        
         if keys[pygame.K_d] or keys[pygame.K_RIGHT]:
             self.rect.centerx += PLAYER_MOVE_SPEED
-            self.image = self.original_image
+            if self.fire == True:
+                self.image = self.shooting_image
+            else:
+                self.image = self.original_image
 
         # Обработка прыжка (движение вверх) с блокировкой удерживания
         if keys[pygame.K_w] or keys[pygame.K_UP]:
@@ -40,6 +58,23 @@ class Player(pygame.sprite.Sprite):
                 self.jump_pressed = True
         else:
             self.jump_pressed = False
+        
+        if not (keys[pygame.K_a] or keys[pygame.K_LEFT]) and not (keys[pygame.K_d] or keys[pygame.K_RIGHT]) and self.fire == False:
+            if self.last_key == pygame.K_d or self.last_key == pygame.K_RIGHT:
+                self.image = self.original_image
+            elif self.last_key == pygame.K_a or self.last_key == pygame.K_LEFT:
+                self.image = self.flipped_image
+    
+        
+        if keys[pygame.K_SPACE]:
+            self.fire = True
+            if not (keys[pygame.K_a] or keys[pygame.K_LEFT]) and not (keys[pygame.K_d] or keys[pygame.K_RIGHT]):
+                self.image = self.shooting_image
+            self.timer_fire = int(pygame.time.get_ticks() // 1000) + 1
+        
+        if int(pygame.time.get_ticks() // 1000) == self.timer_fire and self.fire == True:
+            self.fire = False
+            
 
         # Обновление вертикального положения
         if self.speed > -PLAYER_BASE_SPEED:

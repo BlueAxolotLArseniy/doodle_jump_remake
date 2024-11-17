@@ -23,11 +23,9 @@ background_rect = (0, 0, 1920, 1080)
 
 clock = pygame.time.Clock()
 
-
 while_activity = True
 
 last_draw_time = datetime.now()
-
 
 def draw_game():
     while while_activity:
@@ -52,8 +50,10 @@ while while_activity:
 
     jump_platform_spawner.update()
     player.update(jump_platform_spawner.platforms)
-
+    
     clock.tick(GAME_FPS)
+    
+    print(player.fire)
 
 pygame.quit()
 sys.exit()
